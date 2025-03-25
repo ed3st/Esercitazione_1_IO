@@ -29,16 +29,20 @@ int main()
 	}
     
 	//inizio a stampare nel file di output
-	ofs << "#\tN Mean" << endl; // stampo l'intestazione
+	ofs << "# N Mean" << endl; // stampo l'intestazione
 	
 	/*leggo uno alla volta i valori in "data.txt", 
-	li mappo nell'intervallo [-1,2] tramite f_affine 
+	li mappo nell'intervallo [-1,2] tramite f_affine,
+	calcolo di volta in volta la media dei primi i valori 
 	e stampo il risultato in "result.txt nel formato richiesto." */
 	double val;
 	unsigned int i = 1; //inizializzo a 1 un contatore intero
+	double sum = 0.0; //inizializzo la somma a 0
 	while(ifs>>val)
 	{
-		ofs << i++ << "\t" << setprecision(16) << scientific << f_affine(val) << endl; 
+		sum += f_affine(val); //mappo il valore appena letto in [-1,2] e lo aggiungo alla somma
+		ofs << i << " " << setprecision(16) << scientific << sum/(i++) << endl; 
+		//stamo il contatore e la media dei primi i valori mappati. aggiorno il contatore.
 	}
 	
 	ifs.close(); //chiudo "data.txt"
